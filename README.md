@@ -1,18 +1,18 @@
 # pythonql
-PythonQL is an extension to Python that allows language-integrated queries against relational, XML and JSON data, as well an Python's collections
+PythonQL is an extension to Python that allows language-integrated queries against relational, XML and JSON data, as well as Python's collections.
 
 
-Python has pretty advanced comprehensions, that cover a big chunk of SQL, to the point where PonyORM was able to build a whole ORM system based on comprehensions. However, group by mechanisms, outerjoins and support for semi-structured data are not handled well at all.
+Python has pretty advanced comprehensions that cover a large chunk of SQL, to the point where PonyORM was able to build a whole ORM system based on comprehensions. However, group by mechanisms, outerjoins and support for semi-structured data are not handled well at all.
 
 
-We propose the following extensions to Python( that are implemeneted in this demo preprocessor and query executor):
+We propose the following extensions to Python (that are implemeneted in this demo preprocessor and query executor):
 
  - Path expressions. When working with nested data that has varied structure, path expressions are extremely useful. We have modeled our path expression on XPath, however we use a much simplified verison:
 
   - Child step:  ```for x in data ./ _``` or ```for x in data ./ expr ``` where expr must evaluate to string 
   - Descendants step: ```for x in data .// _``` or ```for x in data ../ expr``` where expr must evaluate to string
 
-So we can write path expression in the query language (and elsewhere in Python expressions) like this:
+Therefore we can write path expression in the query language (and elsewhere in Python expressions) like this:
 ```
   for x in data ./ "hotels" .// "room"
 ```
@@ -23,14 +23,14 @@ So we can write path expression in the query language (and elsewhere in Python e
    try int(x) except 0 for x in values 
 ```
 
- - Tuple constructor. Tuples that have named columns are very useful in querying, however Python's native namedtuple is not very convenient. We have extended Python's tuple constructor syntax:
+ - Tuple constructor. Tuples that have named columns are very useful in querying, however Pythons native namedtuple is not very convenient. We have extended Python's tuple constructor syntax:
  ```
    (id as employee_id, sum(x) as total_salary)
  ```
 
  - Query expressions:
-Our query syntax is a strict superset of Python's comprehensions, we extend the comprehensions to do much more powerful queries
-than they are capable of now.
+Our query syntax is a strict superset of Pythons comprehensions, we extend the comprehensions to do much more powerful queries
+than they are capable of at the time of writing.
 ```
  [ select (prod,len(p)) 
    for p in sales 
@@ -38,8 +38,10 @@ than they are capable of now.
    group by prod ]
 ```
 
- At the same time our queries look similar to SQL, but are more flexible and of course most of the expressions in the queres are
-in pure Python. A lot of functionality is cleaner than in SQL, like the window queries, subqueries in general, etc. As in Python, our query expressions can return generators, list, sets and maps.
+At the same time our queries look similar to SQL, but are MORE FLEXIBLE and of course most of the expressions in the queries are
+in pure Python. A lot of functionality is CLEANER than in SQL, like the window queries, subqueries in general, etc. 
+
+As in Python, our query expressions can return generators, list, sets and maps.
 
 ## Documentation
 
@@ -48,10 +50,15 @@ A short tutorial on PythonQL is available here: https://github.com/pythonql/pyth
 
 ## Examples
 
-We have a whole site dedicated to various scenarios with lots of queries where PythonQL is especially handy: www.pythonql.org
+We have an in-progress website dedicated to various scenarios with lots of queries where PythonQL is shown to be especially useful and versatile: 
+
+www.pythonql.org
+
+Our website http://www.pythonql.org/ will document and code a number of scenarios where PythonQL is especially useful for solving:
+
+Below is a small example PythonQL program.
 
 
-Here is a small example PythonQL program (we're building a demo website with a number of scenarios that are especially good for solving with PythonQL):
 
 ```Python
 #coding: pythonql
@@ -93,7 +100,7 @@ pythonql preprocessor is run, which converts the pythonql syntax to pure python.
 
 So you should have a line in the beginning of your script:
 ```
-#coding: pythoql
+#coding: pythonql
 
 result = [ select y for x in [1,2,3] let y = x**2 ]
 ```
